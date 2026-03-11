@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aIjbJDOXJ4A=",
+  "dgSpecHash": "o/YblAHLnXM=",
   "success": true,
-  "projectFilePath": "/home/niels/github/ndcsecurity2026/WebApp/WebApp.csproj",
+  "projectFilePath": "/home/niels/github/futuretech2026/WebApp/WebApp.csproj",
   "expectedPackageFiles": [
     "/home/niels/.nuget/packages/awssdk.core/4.0.3.3/awssdk.core.4.0.3.3.nupkg.sha512",
     "/home/niels/.nuget/packages/mono.cecil/0.11.6/mono.cecil.0.11.6.nupkg.sha512",

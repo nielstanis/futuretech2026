@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Scorecard Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        .info-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .info-section p {
+            margin: 5px 0;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #555;
+        }
+        .dependency-tree {
+            margin: 20px 0;
+        }
+        .package-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 12px;
+            margin: 8px 0;
+            transition: box-shadow 0.2s;
+        }
+        .package-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .package-name {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        .package-version {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .score-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .score-excellent {
+            background: #2ecc71;
+            color: white;
+        }
+        .score-good {
+            background: #27ae60;
+            color: white;
+        }
+        .score-fair {
+            background: #f39c12;
+            color: white;
+        }
+        .score-poor {
+            background: #e74c3c;
+            color: white;
+        }
+        .score-na {
+            background: #95a5a6;
+            color: white;
+        }
+        .score-none {
+            background: #bdc3c7;
+            color: #2c3e50;
+        }
+        .transitive-package {
+            margin-left: 30px;
+            border-left: 3px solid #ecf0f1;
+            padding-left: 15px;
+        }
+        .checks-list {
+            margin-top: 10px;
+        }
+        .check-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .check-item:last-child {
+            border-bottom: none;
+        }
+        .check-name {
+            color: #555;
+        }
+        .check-reason {
+            color: #7f8c8d;
+            font-size: 0.85em;
+            margin-top: 4px;
+            font-style: italic;
+        }
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-card h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        .stat-card p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        .error-message {
+            color: #e74c3c;
+            background: #fee;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #e74c3c;
+        }
+        .no-data {
+            color: #7f8c8d;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+        .timestamp {
+            text-align: right;
+            color: #7f8c8d;
+            font-size: 0.85em;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Security Scorecard Report</h1>
+        
+        <div class="info-section">
+            <p><span class="info-label">Generated:</span> 2026-03-11 11:26:17</p>
+            <p><span class="info-label">Project:</span> Current Directory</p>
+        </div>
+        <div class="summary-stats">
+            <div class="stat-card">
+                <h3>3</h3>
+                <p>Total Packages</p>
+            </div>
+            <div class="stat-card">
+                <h3>2</h3>
+                <p>With Scorecards</p>
+            </div>
+            <div class="stat-card">
+                <h3>4.2</h3>
+                <p>Average Score</p>
+            </div>
+            <div class="stat-card">
+                <h3>1</h3>
+                <p>Errors</p>
+            </div>
+        </div>
+        <h2>Dependency Tree</h2>
+        <div class="dependency-tree">
+            <h3 style="margin-top: 15px; color: #555;">Top-Level Packages</h3>
+            <div class="package-item">
+                <div class="package-header">
+                    <div>
+                        <span class="package-name">AWSSDK.Core</span>
+                        <span class="package-version">4.0.3.3</span>
+                    </div>
+                    <span class="score-badge score-good">6.00/10</span>
+                </div>
+            </div>
+            <div class="package-item">
+                <div class="package-header">
+                    <div>
+                        <span class="package-name">Mono.Cecil</span>
+                        <span class="package-version">0.11.6</span>
+                    </div>
+                    <span class="score-badge score-poor">2.40/10</span>
+                </div>
+            </div>
+            <div class="package-item">
+                <div class="package-header">
+                    <div>
+                        <span class="package-name">Serilog</span>
+                        <span class="package-version">4.3.0</span>
+                    </div>
+                    <span class="score-badge score-na">Error</span>
+                </div>
+            </div>
+        </div>
+        <h2>Detailed Scorecard Results</h2>
+        <div class="package-item">
+            <div class="package-header">
+                <div>
+                    <span class="package-name">AWSSDK.Core</span>
+                    <span class="package-version">4.0.3.3</span>
+                </div>
+                <span class="score-badge score-good">6.00/10</span>
+            </div>
+            <p style="margin: 8px 0; color: #555;"><strong>Repository:</strong> github.com/aws/aws-sdk-net</p>
+            <p style="margin: 4px 0; color: #7f8c8d; font-size: 0.9em;"><strong>Date:</strong> 2026-03-09 | <strong>Scorecard Version:</strong> v5.4.1-0.20260302234127-4dbf14294ff1</p>
+            <div class="checks-list">
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Maintained</span>
+                        <div class="check-reason">30 commit(s) and 9 issue activity found in the last 90 days -- score normalized to 10</div>
+                    </div>
+                    <span class="score-badge score-excellent">10/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">License</span>
+                        <div class="check-reason">license file detected</div>
+                    </div>
+                    <span class="score-badge score-excellent">10/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Dangerous-Workflow</span>
+                        <div class="check-reason">no dangerous workflow patterns detected</div>
+                    </div>
+                    <span class="score-badge score-excellent">10/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Security-Policy</span>
+                        <div class="check-reason">security policy file detected</div>
+                    </div>
+                    <span class="score-badge score-excellent">10/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Token-Permissions</span>
+                        <div class="check-reason">detected GitHub workflow tokens with excessive permissions</div>
+                    </div>
+                    <span class="score-badge score-excellent">9/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Binary-Artifacts</span>
+                        <div class="check-reason">binaries present in source code</div>
+                    </div>
+                    <span class="score-badge score-good">6/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">SAST</span>
+                        <div class="check-reason">SAST tool is not run on all commits -- score normalized to 5</div>
+                    </div>
+                    <span class="score-badge score-fair">5/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Code-Review</span>
+                        <div class="check-reason">Found 2/30 approved changesets -- score normalized to 0</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">CII-Best-Practices</span>
+                        <div class="check-reason">no effort to earn an OpenSSF best practices badge detected</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Pinned-Dependencies</span>
+                        <div class="check-reason">dependency not pinned by hash detected -- score normalized to 0</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Fuzzing</span>
+                        <div class="check-reason">project is not fuzzed</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Packaging</span>
+                        <div class="check-reason">packaging workflow not detected</div>
+                    </div>
+                    <span class="score-badge score-na">N/A</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Branch-Protection</span>
+                        <div class="check-reason">internal error: error during branchesHandler.setup: internal error: some github tokens can&#39;t read classic branch protection rules: https://github.com/ossf/scorecard-action/blob/main/docs/authentication/fine-grained-auth-token.md</div>
+                    </div>
+                    <span class="score-badge score-na">N/A</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Signed-Releases</span>
+                        <div class="check-reason">no releases found</div>
+                    </div>
+                    <span class="score-badge score-na">N/A</span>
+                </div>
+            </div>
+        </div>
+        <div class="package-item">
+            <div class="package-header">
+                <div>
+                    <span class="package-name">Mono.Cecil</span>
+                    <span class="package-version">0.11.6</span>
+                </div>
+                <span class="score-badge score-poor">2.40/10</span>
+            </div>
+            <p style="margin: 8px 0; color: #555;"><strong>Repository:</strong> github.com/jbevain/cecil</p>
+            <p style="margin: 4px 0; color: #7f8c8d; font-size: 0.9em;"><strong>Date:</strong> 2026-03-09 | <strong>Scorecard Version:</strong> v5.4.1-0.20260302234127-4dbf14294ff1</p>
+            <div class="checks-list">
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Dangerous-Workflow</span>
+                        <div class="check-reason">no dangerous workflow patterns detected</div>
+                    </div>
+                    <span class="score-badge score-excellent">10/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">License</span>
+                        <div class="check-reason">license file detected</div>
+                    </div>
+                    <span class="score-badge score-excellent">10/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Code-Review</span>
+                        <div class="check-reason">Found 23/30 approved changesets -- score normalized to 7</div>
+                    </div>
+                    <span class="score-badge score-good">7/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Maintained</span>
+                        <div class="check-reason">0 commit(s) and 0 issue activity found in the last 90 days -- score normalized to 0</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Token-Permissions</span>
+                        <div class="check-reason">detected GitHub workflow tokens with excessive permissions</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">CII-Best-Practices</span>
+                        <div class="check-reason">no effort to earn an OpenSSF best practices badge detected</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Binary-Artifacts</span>
+                        <div class="check-reason">binaries present in source code</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Security-Policy</span>
+                        <div class="check-reason">security policy file not detected</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Pinned-Dependencies</span>
+                        <div class="check-reason">dependency not pinned by hash detected -- score normalized to 0</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Fuzzing</span>
+                        <div class="check-reason">project is not fuzzed</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Branch-Protection</span>
+                        <div class="check-reason">branch protection not enabled on development/release branches</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">SAST</span>
+                        <div class="check-reason">SAST tool is not run on all commits -- score normalized to 0</div>
+                    </div>
+                    <span class="score-badge score-poor">0/10</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Packaging</span>
+                        <div class="check-reason">packaging workflow not detected</div>
+                    </div>
+                    <span class="score-badge score-na">N/A</span>
+                </div>
+                <div class="check-item">
+                    <div>
+                        <span class="check-name">Signed-Releases</span>
+                        <div class="check-reason">no releases found</div>
+                    </div>
+                    <span class="score-badge score-na">N/A</span>
+                </div>
+            </div>
+        </div>
+        <h2>Packages With Errors</h2>
+        <div class="package-item">
+            <div class="package-header">
+                <div>
+                    <span class="package-name">Serilog</span>
+                    <span class="package-version">4.3.0</span>
+                </div>
+            </div>
+            <div class="error-message">Cannot determine repository from package ID: Serilog. Package metadata may not contain repository URL.</div>
+        </div>
+        <div class="timestamp">
+            Report generated on 2026-03-11 11:26:17
+        </div>
+    </div>
+</body>
+</html>

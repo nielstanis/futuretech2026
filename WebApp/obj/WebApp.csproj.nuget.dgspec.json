@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/niels/github/ndcsecurity2026/WebApp/WebApp.csproj": {}
+    "/home/niels/github/futuretech2026/WebApp/WebApp.csproj": {}
   },
   "projects": {
-    "/home/niels/github/ndcsecurity2026/WebApp/WebApp.csproj": {
+    "/home/niels/github/futuretech2026/WebApp/WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/niels/github/ndcsecurity2026/WebApp/WebApp.csproj",
+        "projectUniqueName": "/home/niels/github/futuretech2026/WebApp/WebApp.csproj",
         "projectName": "WebApp",
-        "projectPath": "/home/niels/github/ndcsecurity2026/WebApp/WebApp.csproj",
+        "projectPath": "/home/niels/github/futuretech2026/WebApp/WebApp.csproj",
         "packagesPath": "/home/niels/.nuget/packages/",
-        "outputPath": "/home/niels/github/ndcsecurity2026/WebApp/obj/",
+        "outputPath": "/home/niels/github/futuretech2026/WebApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/niels/.nuget/NuGet/NuGet.Config"
