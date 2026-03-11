@@ -1,4 +1,4 @@
-# NDC Security 2026 - Beyond Trust: Building Community-Driven Security Analysis for Your .NET Software Supply Chain
+# FutureTech 2026 - Beyond Trust: Building Community-Driven Security Analysis for Your .NET Software Supply Chain
 
 In today's development, approximately 80% of our software deployments consist of code written by someone else. Using existing libraries and packages is essential for productivity and avoiding reinventing the wheel, this dependency on third-party code introduces security risks that can be hard to address in a good way.
 
@@ -34,9 +34,7 @@ Or clone this repo and execute the command shown below to get it installed as gl
 ```bash
 dotnet tool install --global --add-source ./FennecLabs/ fennec
 ```
-## Demo's
-
-Unfortunately I had some issues with my display driver during the talk so I was not able to deliver the demo's and talk fully, for that reason I'm dropping the links to the YouTube video that was made in November at NDC Manchester!
+## Demo video's
 
 - Scorecards : https://youtu.be/l5E0civv82U?t=1584
 - Reproduciblity: https://youtu.be/l5E0civv82U?t=2048
